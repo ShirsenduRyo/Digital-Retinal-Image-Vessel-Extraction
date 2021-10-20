@@ -14,7 +14,7 @@ def transform_img(image):
     blue_mean, blue_std = int(127), int(85)
     blue_channel = advanced_gamma(image[:,:,2], blue_mean, blue_std)
     
-    merge = cv2.merge([blue_channel, green_channel, red_channel])
+    merge = cv2.merge([red_channel, green_channel, blue_channel])
     return merge
 
 def advanced_gamma(image, mean, std, gamma= 1/2.2, gamma2 = 1/3.6):
