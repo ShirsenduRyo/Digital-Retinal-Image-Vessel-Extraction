@@ -31,3 +31,48 @@ def transform_adaimg(image):
     
     merge = cv2.merge([red_channel, green_channel, blue_channel])
     return merge
+
+def green_adaimg(image):
+    l,w,h = image.shape
+    
+    #Red and blue
+    null = np.array([0 for i in np.arange(0, 256)]).astype("uint8")
+    null_channel = cv2.LUT(image[:,:,0], null)
+    
+    #Green Channel
+    green_mean, green_std = image_stat(image,1)
+    green_channel = advanced_gamma(image[:,:,1], green_mean, green_std)
+    print(null.shape)
+    
+    merge = cv2.merge([null_channel, green_channel, null_channel])
+    return merge
+
+def blue_adaimg(image):
+    l,w,h = image.shape
+    
+    #Red and blue
+    null = np.array([0 for i in np.arange(0, 256)]).astype("uint8")
+    null_channel = cv2.LUT(image[:,:,0], null)
+    
+    #Green Channel
+    green_mean, green_std = image_stat(image,2)
+    green_channel = advanced_gamma(image[:,:,2], green_mean, green_std)
+    print(null.shape)
+    
+    merge = cv2.merge([null_channel, null_channel, green_channel])
+    return merge
+
+def red_adaimg(image):
+    l,w,h = image.shape
+    
+    #Red and blue
+    null = np.array([0 for i in np.arange(0, 256)]).astype("uint8")
+    null_channel = cv2.LUT(image[:,:,0], null)
+    
+    #Green Channel
+    green_mean, green_std = image_stat(image,0)
+    green_channel = advanced_gamma(image[:,:,0], green_mean, green_std)
+    print(null.shape)
+    
+    merge = cv2.merge([green_channel, null_channel, null_channel])
+    return merge
